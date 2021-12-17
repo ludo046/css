@@ -1,0 +1,112 @@
+button {
+    border: unset;
+    background-color: unset;
+}
+
+$light-grey: #e7eef7;
+
+$color: $light-grey;
+$lighter-5: lighten($color, 5%);
+$darker-5: darken($color, 5%);
+$darker-10: darken($color, 10%);
+$darker-15: darken($color, 15%);
+$darker-20: darken($color, 20%);
+$darker-25: darken($color, 25%);
+$darker-30: darken($color, 30%);
+
+$flat: rgba(white, 1);
+$flat-24: transparentize($flat, 0.76);
+$flat-70: transparentize($flat, 0.3);
+
+$border-radius: 2.4rem;
+
+@mixin transition {
+    transition: all 120ms ease-in-out 0s;
+}
+
+.calculatrice {
+    height: 100%;
+    width: 100%;
+    background-color: $color;
+    display: grid;
+    grid-template-rows: 3fr 7fr;
+    &_screen {
+        background: linear-gradient(to top, $darker-5, $lighter-5);
+        box-shadow: inset 0rem 0.1rem 0.5rem $darker-25, inset 0rem 0.2rem 0.5rem $darker-15,
+            inset -0.4rem -0.4rem 1.8rem $flat, 6px 1px 20px $darker-20, -3px -17px 20px $flat-70;
+        &:before {
+            border-color: white;
+            box-shadow: 0px 0.4rem 1.6rem $flat;
+        }
+        &:after {
+            box-shadow: inset 0px 0px 1.6rem $flat;
+        }
+        margin: 10px;
+        font-size: 6vh;
+        @include flex(center, center, column);
+    }
+    &_buttons {
+        margin: 10px;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        justify-items: center;
+
+        &_button {
+            width: 90%;
+            height: 90%;
+            border-radius: $border-radius;
+            font-size: 200%;
+            outline: 0;
+
+            &:active,
+            &:focus {
+                outline: 0;
+            }
+            color: desaturate($darker-30, 20%);
+            background: transparent;
+            position: relative;
+            box-shadow: 0.8rem 0.8rem 2.4rem $darker-10, -0.8rem -0.8rem 2.4rem $flat, -0.2rem -0.2rem 0.2rem $flat;
+            @include transition;
+            &:hover {
+                &:before {
+                    background: $flat-24;
+                }
+            }
+            &:before {
+                content: "";
+                position: absolute;
+                border-radius: $border-radius;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                border: 2px solid transparent;
+                filter: blur(2px);
+                @include transition;
+            }
+            &:after {
+                content: "";
+                position: absolute;
+                border-radius: $border-radius;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                @include transition;
+            }
+            &:active {
+                background: linear-gradient(to top, $darker-5, $lighter-5);
+                box-shadow: inset 0.2rem 0.2rem 0.8rem $darker-25, inset 0.8rem 0.8rem 1.6rem $darker-15,
+                    inset -0.4rem -0.4rem 0.8rem $flat, 2px 2px 8px $darker-20, -2px -2px 2px $flat-70;
+                &:before {
+                    border-color: white;
+                    box-shadow: 0px 0.4rem 1.6rem $flat;
+                }
+                &:after {
+                    box-shadow: inset 0px 0px 1.6rem $flat;
+                }
+            }
+        }
+    }
+}
